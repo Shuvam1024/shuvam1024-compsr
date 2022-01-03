@@ -9,3 +9,7 @@ Furthermore note that our CNN should recover from degradation induced not only b
 We envision a scenario where different CNNs may be used for different combinations of the pair: down/up ratio and compression-level. Therefore we generate training and testing data for each pair, which is 12 in all for 3 down-up ratios and 4 compression-levels. We hereby also release these datasets
 
 Below, we provide the steps used to generate the datasets. All the datasets are adapted from the Div2K dataset originally released for a competition on super-resolution without compression. But we are happy to make our adaptations on this set available for free to other researchers in this space.
+## Dataset Generation
+The original Div2k dataset has 1000 images. Images numbered 1-800 comprised the training set, images 801-900 comprised the validation set, and images 901-1000 comprised the testing set. However, for 901-1000, only the low resolution set was released. For our purpose, we can only use the available full-resolution images. So we took the first 800 images (training set in the original Div2K set) and split them randomly into 640 for the training set (80%) and 160 for the validation set (20%). Then the images 801-900 (validation set in the original Div2K set) are used as the testing set in our pipeline. 
+
+With this background here are the steps for generating each of the training, validation and testing datasets for down- and upsampling ratio r in {2:1, 8:5, 4:3} and quality parameter Q in {20, 30, 40, 50}.
