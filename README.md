@@ -13,3 +13,13 @@ Below, we provide the steps used to generate the datasets. All the datasets are 
 The original Div2k dataset has 1000 images. Images numbered 1-800 comprised the training set, images 801-900 comprised the validation set, and images 901-1000 comprised the testing set. However, for 901-1000, only the low resolution set was released. For our purpose, we can only use the available full-resolution images. So we took the first 800 images (training set in the original Div2K set) and split them randomly into 640 for the training set (80%) and 160 for the validation set (20%). Then the images 801-900 (validation set in the original Div2K set) are used as the testing set in our pipeline. 
 
 With this background here are the steps for generating each of the training, validation and testing datasets for down- and upsampling ratio r in {2:1, 8:5, 4:3} and quality parameter Q in {20, 30, 40, 50}.
+
+* First convert each original RGB image in the set into YUV 420 format using ffmpeg. For image and video compression YUV 420 format is widely used, and further we only want to focus on improving the Y component for our CNN. U and V components are left to be processed using traditional linear down and upscaling. The YUV 420 image generated is referred to as the original image
+* Use a Lanczos downscaler with parameter a = 5 to downscale each image by ratio r.
+* Compress each downsampled image using the libaom software for AV1 with quality parameter Q.
+* Decompress the bitstream generated to obtain a reconstructed version of the downsampled image.
+* Use a Lanczos upscaler with parameter a = 5 to upscale the reconstructed image by ratio r. The resultant image must have the same size as the original image.
+* Extract random patches of size p x p from the Y channel of the original image and the corresponding patch in the Y channel of the compressed upscaled image. Use a suitability criteria to make sure that the range of Y values (maximum - minimum) in the patch of the original image is at least 8.
+* Store the patch pairs and the patch-size p in a compressed numpy npz format. See the Colab code for the exact format of the data.
+
+Repeat the process for each of 12 {r, Q} pairs, each generating three datasets for training, validation and testing respectively. Note the patch-size p for testing does not need to be the same as that for training and validation since our network is fully convolutional. In these datasets, we have used 48 x 48 patches (p = 48) for training and validation, but 64 x 64 patches (p = 64) for testing. The datasets are available here:
