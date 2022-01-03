@@ -24,7 +24,7 @@ With this background here are the steps for generating each of the training, val
 
 Repeat the process for each of 12 {r, Q} pairs, each generating three datasets for training, validation and testing respectively. Note the patch-size p for testing does not need to be the same as that for training and validation since our network is fully convolutional. In these datasets, we have used 48 x 48 patches (p = 48) for training and validation, but 64 x 64 patches (p = 64) for testing. 
 
-The datasets are available here:
+The datasets are available here in numpy npz format containing arrays 'data' and 'noisy_data' with a square 'patchsize':
 * Ratio 2:1, Q = 20 (Near-lossless quality): [Training](https://storage.googleapis.com/srcompdata/Ratio_2by1/DIV2K_train_2by1_20_48x48.npz), [Validation](https://storage.googleapis.com/srcompdata/Ratio_2by1/DIV2K_valid_2by1_20_48x48.npz), [Testing](https://storage.googleapis.com/srcompdata/Ratio_2by1/DIV2K_test_2by1_20_64x64.npz)
 * Ratio 2:1, Q = 30 (Near-lossless quality): [Training](https://storage.googleapis.com/srcompdata/Ratio_2by1/DIV2K_train_2by1_30_48x48.npz), [Validation](https://storage.googleapis.com/srcompdata/Ratio_2by1/DIV2K_valid_2by1_30_48x48.npz), [Testing](https://storage.googleapis.com/srcompdata/Ratio_2by1/DIV2K_test_2by1_30_64x64.npz)
 * Ratio 2:1, Q = 40 (Near-lossless quality): [Training](https://storage.googleapis.com/srcompdata/Ratio_2by1/DIV2K_train_2by1_40_48x48.npz), [Validation](https://storage.googleapis.com/srcompdata/Ratio_2by1/DIV2K_valid_2by1_40_48x48.npz), [Testing](https://storage.googleapis.com/srcompdata/Ratio_2by1/DIV2K_test_2by1_40_64x64.npz)
