@@ -37,3 +37,16 @@ The datasets are available here in numpy npz format containing arrays 'data' and
 * Ratio 4:3, Q = 30 (Near-lossless quality): [Training](https://storage.googleapis.com/srcompdata/Ratio_4by3/DIV2K_train_4by3_30_48x48.npz), [Validation](https://storage.googleapis.com/srcompdata/Ratio_4by3/DIV2K_valid_4by3_30_48x48.npz), [Testing](https://storage.googleapis.com/srcompdata/Ratio_4by3/DIV2K_test_4by3_30_64x64.npz)
 * Ratio 4:3, Q = 40 (Near-lossless quality): [Training](https://storage.googleapis.com/srcompdata/Ratio_4by3/DIV2K_train_4by3_40_48x48.npz), [Validation](https://storage.googleapis.com/srcompdata/Ratio_4by3/DIV2K_valid_4by3_40_48x48.npz), [Testing](https://storage.googleapis.com/srcompdata/Ratio_4by3/DIV2K_test_4by3_40_64x64.npz)
 * Ratio 4:3, Q = 50 (Near-lossless quality): [Training](https://storage.googleapis.com/srcompdata/Ratio_4by3/DIV2K_train_4by3_50_48x48.npz), [Validation](https://storage.googleapis.com/srcompdata/Ratio_4by3/DIV2K_valid_4by3_50_48x48.npz), [Testing](https://storage.googleapis.com/srcompdata/Ratio_4by3/DIV2K_test_4by3_50_64x64.npz)
+
+## Colaboratory Samples for training and testing
+We provide a set of Colab sample files to train and test super-resolution with compression based on the above datasets.
+
+Specifically, we provide four Colab samples covering quality levels for compression 20, 30, 40 and 50 respectively as follows: 
+* [ShuvamSR20.ipynb](https://github.com/Shuvam1024/compsr/blob/main/ShuvamSR20.ipynb)
+* [ShuvamSR30.ipynb](https://github.com/Shuvam1024/compsr/blob/main/ShuvamSR30.ipynb)
+* [ShuvamSR40.ipynb](https://github.com/Shuvam1024/compsr/blob/main/ShuvamSR40.ipynb)
+* [ShuvamSR50.ipynb](https://github.com/Shuvam1024/compsr/blob/main/ShuvamSR50.ipynb)
+
+In the Colab file for a given quality level, change the parameter ratio to be one of {‘2by1’, ‘8by5’, and ‘4by3’} to train for that ratio at that quality level. We expect the network architecture to depend more on the quality level of compression. But one can experiment with changing the architecture for each {ratio, quality} pair. 
+
+The Colab files themselves are well documented to illustrate the steps for training and testing.
