@@ -39,14 +39,16 @@ The datasets are available here in numpy npz format containing arrays 'data' and
 * Ratio 4:3, Q = 50 (Near-lossless quality): [Training](https://storage.googleapis.com/srcompdata/Ratio_4by3/DIV2K_train_4by3_50_48x48.npz), [Validation](https://storage.googleapis.com/srcompdata/Ratio_4by3/DIV2K_valid_4by3_50_48x48.npz), [Testing](https://storage.googleapis.com/srcompdata/Ratio_4by3/DIV2K_test_4by3_50_64x64.npz)
 
 ## Colaboratory Samples for training and testing
-We provide a set of Colab sample files to train and test super-resolution with compression based on the above datasets.
+We provide a set of Colab sample files to train and test super-resolution with compression based on the above datasets. Each sample has a different architecture for the CNN used.
 
-Specifically, we provide four Colab samples covering quality levels for compression 20, 30, 40 and 50 respectively as follows: 
-* [ShuvamSR20.ipynb](https://github.com/Shuvam1024/compsr/blob/main/ShuvamSR20.ipynb)
-* [ShuvamSR30.ipynb](https://github.com/Shuvam1024/compsr/blob/main/ShuvamSR30.ipynb)
-* [ShuvamSR40.ipynb](https://github.com/Shuvam1024/compsr/blob/main/ShuvamSR40.ipynb)
-* [ShuvamSR50.ipynb](https://github.com/Shuvam1024/compsr/blob/main/ShuvamSR50.ipynb)
+* [SRCompA.ipynb](https://github.com/Shuvam1024/compsr/blob/main/SRCompA.ipynb)
+* [SRCompB.ipynb](https://github.com/Shuvam1024/compsr/blob/main/SRCompB.ipynb)
 
-In the Colab file for a given quality level, change the parameter ratio to be one of {‘2by1’, ‘8by5’, and ‘4by3’} to train for that ratio at that quality level. We expect the network architecture to depend more on the quality level of compression. But one can experiment with changing the architecture for each {ratio, quality} pair. 
+In each Colab file choose a quality level as one of {'20', '30', '40', '50'}, and the down up ratio as one of {‘2by1’, ‘8by5’, and ‘4by3’} to train for that ratio at that quality level. We expect the network architecture to depend on the quality level of compression as well as the ratio. One can experiment with changing the architecture for each {ratio, quality} pair. 
 
-The Colab files themselves are well documented to illustrate the steps for training and testing.
+The Colab files themselves are well documented to illustrate the steps for training and testing. 
+
+## Challenges
+The Colab scripts above show the number of parameters used and the FLOPS used per pixel by the specific network used. Both of these are useful measures of complexity of the network. The scripts also show the overall reduction in MSE between the restored patches and the source patches expressed as a percetange of the MSE between noisy patches prior to restoration and the source patches. Based on these data, one can define challenges as follows:
+* Design and train a network with a hard given upper bound on the FLOPS per pixel, providing the highest reduction in MSE.
+* Design and train a network with a hard given upper bound on the number of parameters, providing the highest reduction in MSE.
