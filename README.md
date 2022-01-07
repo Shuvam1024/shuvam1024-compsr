@@ -49,6 +49,7 @@ In each Colab file choose a quality level as one of {'20', '30', '40', '50'}, an
 The Colab files themselves are well documented to illustrate the steps for training and testing. 
 
 ## Challenges
-The Colab scripts above show the number of parameters used and the FLOPS used per pixel by the specific network used. Both of these are useful measures of complexity of the network. The scripts also show the overall reduction in MSE between the restored patches and the source patches expressed as a percetange of the MSE between noisy patches prior to restoration and the source patches. Based on these data, one can define challenges as follows:
+The Colab scripts above show the number of parameters used and the FLOPS used per pixel by the specific network used. Both of these are useful measures of complexity of the network. The scripts also show the overall reduction in MSE on the testing set between the restored patches and the source patches expressed as a percetange of the original MSE between noisy patches prior to restoration and the source patches. Based on this data, one can define challenges as follows:
 * Design and train a network with a hard given upper bound on the FLOPS per pixel, providing the highest reduction in MSE.
 * Design and train a network with a hard given upper bound on the number of parameters, providing the highest reduction in MSE.
+* Design and train a network with a hard given upper bound on FLOPS per pixel and another hard upper bound on the number of parameters, providing the highest reduction in MSE.
