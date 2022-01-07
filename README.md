@@ -44,7 +44,7 @@ We provide a set of Colab sample files to train and test super-resolution with c
 * [SRCompA.ipynb](https://github.com/Shuvam1024/compsr/blob/main/SRCompA.ipynb)
 * [SRCompB.ipynb](https://github.com/Shuvam1024/compsr/blob/main/SRCompB.ipynb)
 
-In each Colab file choose a quality level as one of {'20', '30', '40', '50'}, and the down up ratio as one of {‘2by1’, ‘8by5’, and ‘4by3’} to train for that ratio at that quality level. We expect the network architecture to depend on the quality level of compression as well as the ratio. One can experiment with changing the architecture for each {ratio, quality} pair. 
+In each Colab file choose a quality level as one of {'20', '30', '40', '50'}, and the down up ratio as one of {‘2by1’, ‘8by5’, and ‘4by3’} to train for that ratio at that quality level. We expect the network architecture to depend on the quality level of compression as well as the ratio. One can experiment with changing the architecture for each {ratio, quality} pair. For actual deployment, images could be restored using one of the available networks based on closest quality level and downsampling ratio combination for the received image.
 
 The Colab files themselves are well documented to illustrate the steps for training and testing. 
 
