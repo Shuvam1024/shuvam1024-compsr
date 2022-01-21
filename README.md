@@ -39,7 +39,7 @@ The datasets are available here in numpy npz format containing arrays 'data' and
 * Ratio 4:3, Q = 50 (Near-lossless quality): [Training](https://storage.googleapis.com/srcompdata/Ratio_4by3/DIV2K_train_4by3_50_48x48.npz), [Validation](https://storage.googleapis.com/srcompdata/Ratio_4by3/DIV2K_valid_4by3_50_48x48.npz), [Testing](https://storage.googleapis.com/srcompdata/Ratio_4by3/DIV2K_test_4by3_50_64x64.npz)
 
 ## Colaboratory Samples for training and testing
-We provide a set of Colab sample files to train and test super-resolution with compression based on the above datasets. Each sample has a different architecture for the CNN used.
+We provide a set of Colab sample files to train and test super-resolution with compression based on the above datasets. Each sample has a different architecture for the CNN used. The Colab scripts show the number of parameters used and the FLOPS used per pixel by the specific network used. Both of these are useful measures of complexity of the network. The scripts also show the overall reduction in MSE on the testing set between the restored patches and the source patches expressed as a percetange of the original MSE between noisy patches prior to restoration and the source patches.
 
 * [SRCompA.ipynb](https://github.com/Shuvam1024/compsr/blob/main/SRCompA.ipynb) - Uses full 2D convolution
 * [SRCompB.ipynb](https://github.com/Shuvam1024/compsr/blob/main/SRCompB.ipynb) - Uses Spatial separable convolution
@@ -51,7 +51,7 @@ In each Colab file choose a quality level as one of {'20', '30', '40', '50'}, an
 The Colab files themselves are well documented to illustrate the steps for training and testing. 
 
 ## Challenges
-The Colab scripts above show the number of parameters used and the FLOPS used per pixel by the specific network used. Both of these are useful measures of complexity of the network. The scripts also show the overall reduction in MSE on the testing set between the restored patches and the source patches expressed as a percetange of the original MSE between noisy patches prior to restoration and the source patches. Based on this data, one can define challenges as follows:
+ Based on the above datasets, one can define challenges as follows:
 * Design and train a network with a hard given upper bound on the FLOPS per pixel, providing the highest reduction in MSE.
 * Design and train a network with a hard given upper bound on the number of parameters, providing the highest reduction in MSE.
 * Design and train a network with a hard given upper bound on FLOPS per pixel and another hard upper bound on the number of parameters, providing the highest reduction in MSE.
