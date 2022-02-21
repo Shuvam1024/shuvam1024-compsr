@@ -41,10 +41,11 @@ The datasets are available here in numpy npz format containing arrays 'data' and
 ## Colaboratory Samples for training and testing
 We provide a set of Colab sample files to train and test super-resolution with compression based on the above datasets. Each sample has a different architecture for the CNN used. The Colab scripts show the number of parameters used and the FLOPS used per pixel by the specific network used. Both of these are useful measures of complexity of the network. The scripts also show the overall reduction in MSE on the testing set between the restored patches and the source patches, expressed as a percentage of the original MSE between noisy patches prior to restoration and the source patches.
 
-* [SRCompA.ipynb](https://github.com/Shuvam1024/compsr/blob/main/SRCompA.ipynb) - Uses full 2D convolution (Total params: 24,953 | FLOPS Per Pixel: 49770)
-* [SRCompB.ipynb](https://github.com/Shuvam1024/compsr/blob/main/SRCompB.ipynb) - Uses Spatial separable convolution (Total params: 20,327 | FLOPS Per Pixel: 40381)
-* [SRCompC.ipynb](https://github.com/Shuvam1024/compsr/blob/main/SRCompC.ipynb) - Uses a combination of a high-res path and low-res path with 2D convolution  (Total params: 24,607 | FLOPS Per Pixel: 23307)
-* [SRCompD.ipynb](https://github.com/Shuvam1024/compsr/blob/main/SRCompD.ipynb) - Uses a combination of a high-res path and low-res path with separable convolution (Total params: 17,367 | FLOPS Per Pixel: 16455)
+* [SRCompA.ipynb](https://github.com/Shuvam1024/compsr/blob/main/SRCompA.ipynb) - Uses full 2D convolution (Total params: 24953 | FLOPS Per Pixel: 49770)
+* [SRCompB.ipynb](https://github.com/Shuvam1024/compsr/blob/main/SRCompB.ipynb) - Uses Spatial separable convolution (Total params: 20327 | FLOPS Per Pixel: 40381)
+* [SRCompC.ipynb](https://github.com/Shuvam1024/compsr/blob/main/SRCompC.ipynb) - Uses a combination of a high-res path and low-res path with 2D convolution  (Total params: 24607 | FLOPS Per Pixel: 23307)
+* [SRCompD.ipynb](https://github.com/Shuvam1024/compsr/blob/main/SRCompD.ipynb) - Uses a combination of a high-res path and low-res path with spatial separable convolution (Total params: 17367 | FLOPS Per Pixel: 16455)
+* [SRCompE.ipynb](https://github.com/Shuvam1024/compsr/blob/main/SRCompE.ipynb) - Uses a combination of a high-res path and low-res path with depthwise separable convolution (Total params: 8277 | FLOPS Per Pixel: 9028)
 
 In each Colab file choose a quality level as one of {'20', '30', '40', '50'}, and the down up ratio as one of {‘2by1’, ‘8by5’, and ‘4by3’} to train for that ratio at that quality level. We expect the network architecture to depend on the quality level of compression as well as the ratio. One can experiment with changing the architecture for each {ratio, quality} pair. For actual deployment, images could be restored using one of the available networks based on closest quality level and downsampling ratio combination for the received image.
 
