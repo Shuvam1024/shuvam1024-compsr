@@ -233,7 +233,16 @@ def plot_gain_vs_qp(rows: list[dict], path: Path) -> None:
     plt.close(fig)
 
 
-def write_report(results_dir: Path) -> dict:
+def splice_readme(readme: Path, table: str, start: str = "<!-- RESULTS -->", end: str = "<!-- /RESULTS -->") -> None:
+    text = readme.read_text()
+    if start not in text or end not in text:
+        raise RuntimeError(f"{readme} is missing results markers")
+    before, rest = text.split(start, 1)
+    _, after = rest.split(end, 1)
+    readme.write_text(f"{before}{start}\n\n{table.rstrip()}\n\n{end}{after}")
+
+
+def write_report(results_dir: Path, readme: Path | None = None) -> dict:
     results_dir = Path(results_dir)
     rows = load_runs(results_dir)
     csv_path = results_dir / "metrics.csv"
@@ -243,4 +252,6 @@ def write_report(results_dir: Path) -> dict:
     table_path.write_text(table)
     plot_gain_vs_params(rows, results_dir / "psnr_gain_vs_params.png")
     plot_gain_vs_qp(rows, results_dir / "psnr_gain_vs_qp.png")
+    if readme is not None:
+        splice_readme(readme, table)
     return {"rows": len(rows), "csv": str(csv_path), "table": str(table_path)}

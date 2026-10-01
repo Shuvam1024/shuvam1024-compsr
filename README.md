@@ -83,6 +83,7 @@ MSE reduction percent is `(MSE_baseline - MSE_restored) / MSE_baseline * 100`, t
 Reported runs use the budget in `configs/train.yaml`: 6 epochs, batch 256, 16,384 training patches (`subset_seed` 0), full test split. Seeds 0, 1, and 2 are trained for 2:1 at QP 50. Other settings use seed 0. `python -m compsr report` writes `results/metrics.csv`, `results/table.md`, and the plots from `results/runs/*.json`.
 
 <!-- RESULTS -->
+<!-- /RESULTS -->
 
 A star marks the highest mean PSNR gain at that QP. Where three seeds exist, the cell is mean ± sample standard deviation (`ddof=1`). Plots:
 

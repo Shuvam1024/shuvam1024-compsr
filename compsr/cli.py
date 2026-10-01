@@ -293,7 +293,8 @@ def cmd_generate(args) -> int:
 
 
 def cmd_report(args) -> int:
-    info = write_report(Path(args.results_dir))
+    readme = Path(args.readme) if args.readme else None
+    info = write_report(Path(args.results_dir), readme=readme)
     print(json.dumps(info))
     return 0
 
@@ -388,6 +389,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     report = sub.add_parser("report", help="write metrics.csv, table.md, and plots from run JSON")
     report.add_argument("--results-dir", default="results")
+    report.add_argument("--readme", default="", help="optional README path; splice the table between markers")
     report.set_defaults(func=cmd_report)
     return parser
 
