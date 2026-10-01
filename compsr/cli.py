@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import platform
 from pathlib import Path
 
@@ -231,7 +232,16 @@ def cmd_bench(args) -> int:
             f"batch {args.batch}; {frame['ms_per_frame']:.1f} ms/frame at {args.frame_width}x{args.frame_height}",
             flush=True,
         )
-    payload = {"device": device, "torch": torch.__version__, "models": rows}
+    payload = {
+        "device": device,
+        "torch": torch.__version__,
+        "platform": platform.platform(),
+        "cpu": platform.processor(),
+        "cpu_count": os.cpu_count(),
+        "torch_threads": torch.get_num_threads(),
+        "cuda_available": torch.cuda.is_available(),
+        "models": rows,
+    }
     if args.output:
         Path(args.output).parent.mkdir(parents=True, exist_ok=True)
         Path(args.output).write_text(json.dumps(payload, indent=2) + "\n")

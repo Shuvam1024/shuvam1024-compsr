@@ -94,9 +94,10 @@ The epoch count comes from a probe of A and E on 2:1 QP 50, seed 0, saved in `re
 
 ## Efficiency
 
-Parameter counts and FLOPs/pixel are properties of the graph; the table in Architectures is the keras-flops-compatible count. Measured throughput is CPU inference of the PyTorch modules (no GPU was available in the run that produced `results/efficiency.json`): patch throughput at the 64×64 test size, and latency of one 1280×720 luma frame.
+Parameter counts and FLOPs/pixel are properties of the graph; the table in Architectures is the keras-flops-compatible count. `python -m compsr bench` writes `results/efficiency.json`: patch throughput and the latency of one luma frame. `python -m compsr export-onnx` writes `results/onnx/model_{A-E}.onnx` (gitignored) and `results/onnx_report.json`. The legacy tracer freezes `SAME` padding and the bilinear resize to the example resolution, so each graph matches PyTorch at that height and width (any batch) and is not a dynamic-shape model.
 
-ONNX export (`compsr export-onnx`) writes `results/onnx/model_{A-E}.onnx` and `results/onnx_report.json`. The legacy tracer freezes `SAME` padding and the bilinear resize to the example resolution, so each graph matches PyTorch at that height and width (any batch) and is not a dynamic-shape model. The report records the max absolute error and CPU images/second for PyTorch and ONNX Runtime.
+<!-- EFFICIENCY -->
+<!-- /EFFICIENCY -->
 
 ## Reproduce
 

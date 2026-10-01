@@ -242,6 +242,59 @@ def splice_readme(readme: Path, table: str, start: str = "<!-- RESULTS -->", end
     readme.write_text(f"{before}{start}\n\n{table.rstrip()}\n\n{end}{after}")
 
 
+def render_efficiency(efficiency: dict, onnx_rows: list[dict] | None = None) -> str:
+    """Markdown tables whose numbers are taken only from the measurement files."""
+    lines = [
+        f"Device `{efficiency['device']}`, torch {efficiency['torch']}, "
+        f"{efficiency.get('cpu_count', '?')} CPUs"
+        + (f" ({efficiency['cpu']})" if efficiency.get("cpu") else "")
+        + f", {efficiency.get('torch_threads', '?')} torch threads.",
+        f"CUDA available at measurement time: {efficiency.get('cuda_available')}.",
+        "",
+        "| Model | Params | FLOPs/pixel | Patch images/s | ms/frame |",
+        "| --- | ---: | ---: | ---: | ---: |",
+    ]
+    for row in efficiency["models"]:
+        patch = row["patch_throughput"]
+        frame = row["frame_latency"]
+        lines.append(
+            "| {model} | {params} | {flops:.0f} | {images:.2f} ({h}×{w}, batch {batch}) | {ms:.2f} ({fw}×{fh}) |".format(
+                model=row["model"],
+                params=int(row["params"]),
+                flops=float(row["flops_per_pixel"]),
+                images=float(patch["images_per_s"]),
+                h=int(patch["height"]),
+                w=int(patch["width"]),
+                batch=int(patch["batch"]),
+                ms=float(frame["ms_per_frame"]),
+                fw=int(frame["width"]),
+                fh=int(frame["height"]),
+            )
+        )
+    lines.append("")
+    if onnx_rows:
+        lines.append(
+            "ONNX graphs were checked at the export resolution. "
+            "The legacy tracer does not make height and width dynamic."
+        )
+        lines.append("")
+        lines.append("| Model | Max abs diff | ONNX Runtime images/s | PyTorch images/s | Timing |")
+        lines.append("| --- | ---: | ---: | ---: | --- |")
+        for row in onnx_rows:
+            lines.append(
+                "| {model} | {diff:.3e} | {ort:.2f} | {pt:.2f} | batch {batch}, {size}×{size} |".format(
+                    model=row["model"],
+                    diff=float(row["max_abs_diff"]),
+                    ort=float(row["onnxruntime_images_per_s"]),
+                    pt=float(row["pytorch_images_per_s"]),
+                    batch=int(row["timing_batch"]),
+                    size=int(row["timing_size"]),
+                )
+            )
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def write_report(results_dir: Path, readme: Path | None = None) -> dict:
     results_dir = Path(results_dir)
     rows = load_runs(results_dir)
@@ -252,6 +305,26 @@ def write_report(results_dir: Path, readme: Path | None = None) -> dict:
     table_path.write_text(table)
     plot_gain_vs_params(rows, results_dir / "psnr_gain_vs_params.png")
     plot_gain_vs_qp(rows, results_dir / "psnr_gain_vs_qp.png")
+    efficiency_path = results_dir / "efficiency.json"
+    onnx_path = results_dir / "onnx_report.json"
+    efficiency_text = None
+    if efficiency_path.exists():
+        efficiency = json.loads(efficiency_path.read_text())
+        onnx_rows = json.loads(onnx_path.read_text()) if onnx_path.exists() else None
+        efficiency_text = render_efficiency(efficiency, onnx_rows)
+        (results_dir / "efficiency.md").write_text(efficiency_text)
     if readme is not None:
         splice_readme(readme, table)
-    return {"rows": len(rows), "csv": str(csv_path), "table": str(table_path)}
+        if efficiency_text is not None:
+            splice_readme(
+                readme,
+                efficiency_text,
+                start="<!-- EFFICIENCY -->",
+                end="<!-- /EFFICIENCY -->",
+            )
+    return {
+        "rows": len(rows),
+        "csv": str(csv_path),
+        "table": str(table_path),
+        "efficiency": efficiency_text is not None,
+    }
