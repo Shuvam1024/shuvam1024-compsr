@@ -1,0 +1,95 @@
+{
+  "n_files": 36,
+  "n_usable": 24,
+  "n_unusable": 12,
+  "identical_sha256_groups": [
+    [
+      "DIV2K_train_4by3_20_48x48.npz",
+      "DIV2K_valid_4by3_20_48x48.npz",
+      "DIV2K_valid_4by3_30_48x48.npz",
+      "DIV2K_train_4by3_30_48x48.npz",
+      "DIV2K_train_4by3_40_48x48.npz",
+      "DIV2K_valid_4by3_40_48x48.npz",
+      "DIV2K_valid_4by3_50_48x48.npz",
+      "DIV2K_train_4by3_50_48x48.npz"
+    ],
+    [
+      "DIV2K_test_4by3_20_64x64.npz",
+      "DIV2K_test_4by3_30_64x64.npz",
+      "DIV2K_test_4by3_40_64x64.npz",
+      "DIV2K_test_4by3_50_64x64.npz"
+    ]
+  ],
+  "unusable": [
+    {
+      "filename": "DIV2K_train_4by3_20_48x48.npz",
+      "sha256": "76832a57ea5ff1826d3ecdce21fbc9c8d1b1c3a83d03e1125d3e198955ae1270",
+      "note": "Duplicate of the 2:1 QP 50 test split; patchsize metadata on train/valid does not match the stored 64x64 arrays. Not usable as a 4:3 corpus."
+    },
+    {
+      "filename": "DIV2K_valid_4by3_20_48x48.npz",
+      "sha256": "76832a57ea5ff1826d3ecdce21fbc9c8d1b1c3a83d03e1125d3e198955ae1270",
+      "note": "Duplicate of the 2:1 QP 50 test split; patchsize metadata on train/valid does not match the stored 64x64 arrays. Not usable as a 4:3 corpus."
+    },
+    {
+      "filename": "DIV2K_test_4by3_20_64x64.npz",
+      "sha256": "6e9854361e98d8dc0e14f1e566c1f9efc9691871a928fffa4a134215c4de6484",
+      "note": "Duplicate of the 2:1 QP 50 test split; patchsize metadata on train/valid does not match the stored 64x64 arrays. Not usable as a 4:3 corpus."
+    },
+    {
+      "filename": "DIV2K_valid_4by3_30_48x48.npz",
+      "sha256": "76832a57ea5ff1826d3ecdce21fbc9c8d1b1c3a83d03e1125d3e198955ae1270",
+      "note": "Duplicate of the 2:1 QP 50 test split; patchsize metadata on train/valid does not match the stored 64x64 arrays. Not usable as a 4:3 corpus."
+    },
+    {
+      "filename": "DIV2K_train_4by3_30_48x48.npz",
+      "sha256": "76832a57ea5ff1826d3ecdce21fbc9c8d1b1c3a83d03e1125d3e198955ae1270",
+      "note": "Duplicate of the 2:1 QP 50 test split; patchsize metadata on train/valid does not match the stored 64x64 arrays. Not usable as a 4:3 corpus."
+    },
+    {
+      "filename": "DIV2K_test_4by3_30_64x64.npz",
+      "sha256": "6e9854361e98d8dc0e14f1e566c1f9efc9691871a928fffa4a134215c4de6484",
+      "note": "Duplicate of the 2:1 QP 50 test split; patchsize metadata on train/valid does not match the stored 64x64 arrays. Not usable as a 4:3 corpus."
+    },
+    {
+      "filename": "DIV2K_train_4by3_40_48x48.npz",
+      "sha256": "76832a57ea5ff1826d3ecdce21fbc9c8d1b1c3a83d03e1125d3e198955ae1270",
+      "note": "Duplicate of the 2:1 QP 50 test split; patchsize metadata on train/valid does not match the stored 64x64 arrays. Not usable as a 4:3 corpus."
+    },
+    {
+      "filename": "DIV2K_valid_4by3_40_48x48.npz",
+      "sha256": "76832a57ea5ff1826d3ecdce21fbc9c8d1b1c3a83d03e1125d3e198955ae1270",
+      "note": "Duplicate of the 2:1 QP 50 test split; patchsize metadata on train/valid does not match the stored 64x64 arrays. Not usable as a 4:3 corpus."
+    },
+    {
+      "filename": "DIV2K_test_4by3_40_64x64.npz",
+      "sha256": "6e9854361e98d8dc0e14f1e566c1f9efc9691871a928fffa4a134215c4de6484",
+      "note": "Duplicate of the 2:1 QP 50 test split; patchsize metadata on train/valid does not match the stored 64x64 arrays. Not usable as a 4:3 corpus."
+    },
+    {
+      "filename": "DIV2K_valid_4by3_50_48x48.npz",
+      "sha256": "76832a57ea5ff1826d3ecdce21fbc9c8d1b1c3a83d03e1125d3e198955ae1270",
+      "note": "Duplicate of the 2:1 QP 50 test split; patchsize metadata on train/valid does not match the stored 64x64 arrays. Not usable as a 4:3 corpus."
+    },
+    {
+      "filename": "DIV2K_train_4by3_50_48x48.npz",
+      "sha256": "76832a57ea5ff1826d3ecdce21fbc9c8d1b1c3a83d03e1125d3e198955ae1270",
+      "note": "Duplicate of the 2:1 QP 50 test split; patchsize metadata on train/valid does not match the stored 64x64 arrays. Not usable as a 4:3 corpus."
+    },
+    {
+      "filename": "DIV2K_test_4by3_50_64x64.npz",
+      "sha256": "6e9854361e98d8dc0e14f1e566c1f9efc9691871a928fffa4a134215c4de6484",
+      "note": "Duplicate of the 2:1 QP 50 test split; patchsize metadata on train/valid does not match the stored 64x64 arrays. Not usable as a 4:3 corpus."
+    }
+  ],
+  "four_by_three_test_matches_2by1_qp50_test_multiset": true,
+  "four_by_three_test_patchsize_field": 64,
+  "four_by_three_test_spatial": 64,
+  "four_by_three_train_patchsize_field": 48,
+  "four_by_three_train_spatial": [
+    34635,
+    64,
+    64
+  ],
+  "four_by_three_train_arrays_equal_its_test": true
+}
