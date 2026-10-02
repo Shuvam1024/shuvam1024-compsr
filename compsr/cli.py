@@ -207,15 +207,34 @@ def cmd_evaluate(args) -> int:
     return 0
 
 
+def _cpu_model() -> str:
+    cpuinfo = Path("/proc/cpuinfo")
+    if cpuinfo.exists():
+        for line in cpuinfo.read_text().splitlines():
+            if line.startswith("model name"):
+                return line.split(":", 1)[1].strip()
+    return platform.processor() or platform.machine()
+
+
 def cmd_bench(args) -> int:
     device = args.device
     if device == "cuda" and not torch.cuda.is_available():
         raise SystemExit("CUDA was requested but torch.cuda.is_available() is false")
     rows = []
+    repeats = int(args.repeats)
     for name in args.models.split(","):
         model = build_model(name.strip())
-        patch = measure_throughput(model, size=args.size, batch=args.batch, device=device)
-        frame = measure_frame_latency(model, height=args.frame_height, width=args.frame_width, device=device)
+        patch_samples = []
+        frame_samples = []
+        for _ in range(repeats):
+            patch_samples.append(measure_throughput(model, size=args.size, batch=args.batch, device=device))
+            frame_samples.append(
+                measure_frame_latency(model, height=args.frame_height, width=args.frame_width, device=device)
+            )
+        patch = dict(patch_samples[-1])
+        frame = dict(frame_samples[-1])
+        patch["images_per_s_samples"] = [float(item["images_per_s"]) for item in patch_samples]
+        frame["ms_per_frame_samples"] = [float(item["ms_per_frame"]) for item in frame_samples]
         rows.append(
             {
                 "model": name.strip(),
@@ -228,18 +247,21 @@ def cmd_bench(args) -> int:
             }
         )
         print(
-            f"{name.strip()}: {patch['images_per_s']:.2f} patches/s at {args.size}x{args.size} "
-            f"batch {args.batch}; {frame['ms_per_frame']:.1f} ms/frame at {args.frame_width}x{args.frame_height}",
+            f"{name.strip()}: mean {sum(patch['images_per_s_samples']) / repeats:.2f} patches/s "
+            f"at {args.size}x{args.size} batch {args.batch}; "
+            f"mean {sum(frame['ms_per_frame_samples']) / repeats:.1f} ms/frame "
+            f"at {args.frame_width}x{args.frame_height} ({repeats} repeats)",
             flush=True,
         )
     payload = {
         "device": device,
         "torch": torch.__version__,
         "platform": platform.platform(),
-        "cpu": platform.processor(),
+        "cpu": _cpu_model(),
         "cpu_count": os.cpu_count(),
         "torch_threads": torch.get_num_threads(),
         "cuda_available": torch.cuda.is_available(),
+        "repeats": repeats,
         "models": rows,
     }
     if args.output:
@@ -371,6 +393,7 @@ def build_parser() -> argparse.ArgumentParser:
     bench.add_argument("--frame-height", type=int, default=720)
     bench.add_argument("--frame-width", type=int, default=1280)
     bench.add_argument("--output", default="results/efficiency.json")
+    bench.add_argument("--repeats", type=int, default=3)
     bench.set_defaults(func=cmd_bench)
 
     export = sub.add_parser("export-onnx", help="export networks and compare ONNX Runtime outputs")

@@ -28,6 +28,8 @@ def test_table_marks_best_mean_and_reports_sample_std():
     assert "0.250 ± 0.071" in table
     assert "8277" in table
     assert "E *" not in table
+    assert "Model A has the highest mean PSNR gain at every QP in this table." in table
+    assert "Model E has the lowest mean PSNR gain at every QP in this table." in table
 
 
 def test_efficiency_table_uses_only_recorded_fields():
@@ -67,6 +69,11 @@ def test_efficiency_table_uses_only_recorded_fields():
     assert "Device `cpu`" in text
     assert "CUDA available at measurement time: False." in text
     assert "| E | 8277 | 9028 | 12.50 (64×64, batch 16) | 40.00 (1280×720) |" in text
+    efficiency["models"][0]["patch_throughput"]["images_per_s_samples"] = [10.0, 12.0]
+    efficiency["models"][0]["frame_latency"]["ms_per_frame_samples"] = [40.0, 42.0]
+    repeated = render_efficiency(efficiency, onnx_rows)
+    assert "11.00 ± 1.41 (64×64, batch 16)" in repeated
+    assert "41.00 ± 1.41 (1280×720)" in repeated
     assert "| E | 1.200e-06 | 20.00 | 15.00 | batch 8, 64×64 |" in text
 
 

@@ -83,6 +83,67 @@ MSE reduction percent is `(MSE_baseline - MSE_restored) / MSE_baseline * 100`, t
 Reported runs use the budget in `configs/train.yaml`: 6 epochs, batch 256, 16,384 training patches (`subset_seed` 0), full test split. Seeds 0, 1, and 2 are trained for 2:1 at QP 50. Other settings use seed 0. `python -m compsr report` writes `results/metrics.csv`, `results/table.md`, and the plots from `results/runs/*.json`.
 
 <!-- RESULTS -->
+
+Test metrics are measured on the full hosted test split against the original luma.
+Gains are restored minus the Lanczos-upscaled AV1 reconstruction.
+Where several seeds were trained, the cell is mean ± sample standard deviation (ddof=1).
+
+### Ratio 2by1
+
+| QP | Model | Params | PSNR gain (dB) | SSIM gain | MSE reduction (%) |
+| --- | --- | ---: | ---: | ---: | ---: |
+| 20 | A * | 24953 | 0.703 | 0.0083 | 14.94 |
+| 20 | B | 20327 | 0.593 | 0.0069 | 12.77 |
+| 20 | C | 24607 | 0.495 | 0.0056 | 10.77 |
+| 20 | D | 17367 | 0.231 | 0.0020 | 5.17 |
+| 20 | E | 8277 | 0.509 | 0.0057 | 11.07 |
+| 30 | A * | 24953 | 0.575 | 0.0074 | 12.41 |
+| 30 | B | 20327 | 0.469 | 0.0055 | 10.24 |
+| 30 | C | 24607 | 0.416 | 0.0054 | 9.13 |
+| 30 | D | 17367 | 0.187 | 0.0019 | 4.22 |
+| 30 | E | 8277 | 0.436 | 0.0052 | 9.55 |
+| 40 | A * | 24953 | 0.360 | 0.0059 | 7.95 |
+| 40 | B | 20327 | 0.315 | 0.0051 | 6.99 |
+| 40 | C | 24607 | 0.261 | 0.0041 | 5.83 |
+| 40 | D | 17367 | 0.128 | 0.0018 | 2.91 |
+| 40 | E | 8277 | 0.287 | 0.0048 | 6.40 |
+| 50 | A * | 24953 | 0.190 ± 0.003 | 0.0050 ± 0.0001 | 4.27 ± 0.06 |
+| 50 | B | 20327 | 0.132 ± 0.012 | 0.0033 ± 0.0005 | 3.00 ± 0.27 |
+| 50 | C | 24607 | 0.122 ± 0.009 | 0.0031 ± 0.0002 | 2.77 ± 0.20 |
+| 50 | D | 17367 | 0.083 ± 0.025 | 0.0017 ± 0.0006 | 1.89 ± 0.57 |
+| 50 | E | 8277 | 0.148 ± 0.010 | 0.0037 ± 0.0004 | 3.34 ± 0.22 |
+
+\* Highest mean PSNR gain at that QP.
+
+### Ratio 8by5
+
+| QP | Model | Params | PSNR gain (dB) | SSIM gain | MSE reduction (%) |
+| --- | --- | ---: | ---: | ---: | ---: |
+| 20 | A * | 24953 | 0.734 | 0.0048 | 15.55 |
+| 20 | B | 20327 | 0.506 | 0.0030 | 11.00 |
+| 20 | C | 24607 | 0.481 | 0.0031 | 10.48 |
+| 20 | D | 17367 | 0.181 | 0.0008 | 4.08 |
+| 20 | E | 8277 | 0.434 | 0.0026 | 9.52 |
+| 30 | A * | 24953 | 0.567 | 0.0045 | 12.23 |
+| 30 | B | 20327 | 0.428 | 0.0031 | 9.39 |
+| 30 | C | 24607 | 0.365 | 0.0028 | 8.06 |
+| 30 | D | 17367 | 0.095 | 0.0005 | 2.15 |
+| 30 | E | 8277 | 0.383 | 0.0029 | 8.44 |
+| 40 | A * | 24953 | 0.346 | 0.0038 | 7.66 |
+| 40 | B | 20327 | 0.264 | 0.0029 | 5.91 |
+| 40 | C | 24607 | 0.238 | 0.0026 | 5.34 |
+| 40 | D | 17367 | 0.052 | 0.0001 | 1.19 |
+| 40 | E | 8277 | 0.241 | 0.0026 | 5.40 |
+| 50 | A * | 24953 | 0.168 | 0.0033 | 3.80 |
+| 50 | B | 20327 | 0.139 | 0.0027 | 3.15 |
+| 50 | C | 24607 | 0.114 | 0.0023 | 2.60 |
+| 50 | D | 17367 | 0.041 | 0.0007 | 0.94 |
+| 50 | E | 8277 | 0.140 | 0.0029 | 3.16 |
+
+\* Highest mean PSNR gain at that QP.
+
+Model A has the highest mean PSNR gain at every QP in this table. Model D has the lowest mean PSNR gain at every QP in this table.
+
 <!-- /RESULTS -->
 
 A star marks the highest mean PSNR gain at that QP. Where three seeds exist, the cell is mean ± sample standard deviation (`ddof=1`). Plots:
@@ -97,6 +158,29 @@ The epoch count comes from a probe of A and E on 2:1 QP 50, seed 0, saved in `re
 Parameter counts and FLOPs/pixel are properties of the graph; the table in Architectures is the keras-flops-compatible count. `python -m compsr bench` writes `results/efficiency.json`: patch throughput and the latency of one luma frame. `python -m compsr export-onnx` writes `results/onnx/model_{A-E}.onnx` (gitignored) and `results/onnx_report.json`. The legacy tracer freezes `SAME` padding and the bilinear resize to the example resolution, so each graph matches PyTorch at that height and width (any batch) and is not a dynamic-shape model.
 
 <!-- EFFICIENCY -->
+
+Device `cpu`, torch 2.14.1+cpu, 4 CPUs (Intel(R) Xeon(R) Processor), 4 torch threads.
+CUDA available at measurement time: False.
+Patch and frame figures are the mean ± sample standard deviation of the recorded repeats.
+
+| Model | Params | FLOPs/pixel | Patch images/s | ms/frame |
+| --- | ---: | ---: | ---: | ---: |
+| A | 24953 | 49770 | 630.08 ± 55.68 (64×64, batch 16) | 506.38 ± 16.27 (1280×720) |
+| B | 20327 | 40381 | 466.08 ± 72.85 (64×64, batch 16) | 811.68 ± 78.50 (1280×720) |
+| C | 24607 | 23307 | 1270.07 ± 231.42 (64×64, batch 16) | 401.13 ± 7.91 (1280×720) |
+| D | 17367 | 16455 | 1678.85 ± 135.41 (64×64, batch 16) | 492.59 ± 29.23 (1280×720) |
+| E | 8277 | 9028 | 1518.19 ± 126.53 (64×64, batch 16) | 527.32 ± 28.92 (1280×720) |
+
+ONNX graphs were checked at the export resolution. The legacy tracer does not make height and width dynamic.
+
+| Model | Max abs diff | ONNX Runtime images/s | PyTorch images/s | Timing |
+| --- | ---: | ---: | ---: | --- |
+| A | 1.192e-07 | 1339.25 | 752.48 | batch 8, 64×64 |
+| B | 1.192e-07 | 1150.34 | 1198.46 | batch 8, 64×64 |
+| C | 2.086e-07 | 1370.02 | 1410.10 | batch 8, 64×64 |
+| D | 1.192e-07 | 1822.58 | 1625.07 | batch 8, 64×64 |
+| E | 5.960e-08 | 1914.56 | 1298.88 | batch 8, 64×64 |
+
 <!-- /EFFICIENCY -->
 
 ## Reproduce

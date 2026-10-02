@@ -1,0 +1,187 @@
+{
+  "device": "cpu",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.12.94+-x86_64-with-glibc2.39",
+  "cpu": "Intel(R) Xeon(R) Processor",
+  "cpu_count": 4,
+  "torch_threads": 4,
+  "cuda_available": false,
+  "repeats": 3,
+  "models": [
+    {
+      "model": "A",
+      "params": 24953,
+      "flops_per_pixel": 49770.0,
+      "notebook_params": 24953,
+      "notebook_flops_per_pixel": 49770,
+      "patch_throughput": {
+        "device": "cpu",
+        "batch": 16,
+        "height": 64,
+        "width": 64,
+        "iters": 20,
+        "images_per_s": 616.6827004474519,
+        "mpix_per_s": 2.525932341032763,
+        "ms_per_image": 1.6215794593790633,
+        "elapsed_s": 0.5189054270013003,
+        "images_per_s_samples": [
+          582.3283745302383,
+          691.2366667893762,
+          616.6827004474519
+        ]
+      },
+      "frame_latency": {
+        "device": "cpu",
+        "height": 720,
+        "width": 1280,
+        "ms_per_frame": 521.8005512997479,
+        "frames_per_s": 1.9164410568542134,
+        "ms_per_frame_samples": [
+          507.96960909974587,
+          489.3791419999616,
+          521.8005512997479
+        ]
+      }
+    },
+    {
+      "model": "B",
+      "params": 20327,
+      "flops_per_pixel": 40381.0,
+      "notebook_params": 20327,
+      "notebook_flops_per_pixel": 40381,
+      "patch_throughput": {
+        "device": "cpu",
+        "batch": 16,
+        "height": 64,
+        "width": 64,
+        "iters": 20,
+        "images_per_s": 538.7959883016201,
+        "mpix_per_s": 2.206908368083436,
+        "ms_per_image": 1.8559900624950387,
+        "elapsed_s": 0.5939168199984124,
+        "images_per_s_samples": [
+          393.08896580196193,
+          466.34240373544577,
+          538.7959883016201
+        ]
+      },
+      "frame_latency": {
+        "device": "cpu",
+        "height": 720,
+        "width": 1280,
+        "ms_per_frame": 769.9780204999115,
+        "frames_per_s": 1.2987383709352454,
+        "ms_per_frame_samples": [
+          902.2308087998681,
+          762.8187113001331,
+          769.9780204999115
+        ]
+      }
+    },
+    {
+      "model": "C",
+      "params": 24607,
+      "flops_per_pixel": 23307.0,
+      "notebook_params": 24607,
+      "notebook_flops_per_pixel": 23307,
+      "patch_throughput": {
+        "device": "cpu",
+        "batch": 16,
+        "height": 64,
+        "width": 64,
+        "iters": 20,
+        "images_per_s": 1305.6337635890297,
+        "mpix_per_s": 5.347875895660666,
+        "ms_per_image": 0.7659115656224458,
+        "elapsed_s": 0.24509170099918265,
+        "images_per_s_samples": [
+          1022.9238284952776,
+          1481.6563306489356,
+          1305.6337635890297
+        ]
+      },
+      "frame_latency": {
+        "device": "cpu",
+        "height": 720,
+        "width": 1280,
+        "ms_per_frame": 409.5356982001249,
+        "frames_per_s": 2.441789578771561,
+        "ms_per_frame_samples": [
+          393.83611449993623,
+          400.02882270018745,
+          409.5356982001249
+        ]
+      }
+    },
+    {
+      "model": "D",
+      "params": 17367,
+      "flops_per_pixel": 16455.0,
+      "notebook_params": 17367,
+      "notebook_flops_per_pixel": 16455,
+      "patch_throughput": {
+        "device": "cpu",
+        "batch": 16,
+        "height": 64,
+        "width": 64,
+        "iters": 20,
+        "images_per_s": 1670.2493079501232,
+        "mpix_per_s": 6.841341165363705,
+        "ms_per_image": 0.5987130156199783,
+        "elapsed_s": 0.19158816499839304,
+        "images_per_s_samples": [
+          1547.9434661799498,
+          1818.3454279296272,
+          1670.2493079501232
+        ]
+      },
+      "frame_latency": {
+        "device": "cpu",
+        "height": 720,
+        "width": 1280,
+        "ms_per_frame": 525.8766532999289,
+        "frames_per_s": 1.9015866053853112,
+        "ms_per_frame_samples": [
+          480.7665446998726,
+          471.13276310010406,
+          525.8766532999289
+        ]
+      }
+    },
+    {
+      "model": "E",
+      "params": 8277,
+      "flops_per_pixel": 9028.0,
+      "notebook_params": 8277,
+      "notebook_flops_per_pixel": 9028,
+      "patch_throughput": {
+        "device": "cpu",
+        "batch": 16,
+        "height": 64,
+        "width": 64,
+        "iters": 20,
+        "images_per_s": 1571.5379624165737,
+        "mpix_per_s": 6.437019494058286,
+        "ms_per_image": 0.6363193406173195,
+        "elapsed_s": 0.20362218899754225,
+        "images_per_s_samples": [
+          1373.7235001636195,
+          1609.3071947909564,
+          1571.5379624165737
+        ]
+      },
+      "frame_latency": {
+        "device": "cpu",
+        "height": 720,
+        "width": 1280,
+        "ms_per_frame": 559.213017699949,
+        "frames_per_s": 1.7882273272410827,
+        "ms_per_frame_samples": [
+          519.9351290997583,
+          502.8128742000263,
+          559.213017699949
+        ]
+      }
+    }
+  ]
+}

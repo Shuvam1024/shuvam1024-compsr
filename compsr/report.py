@@ -157,7 +157,49 @@ def render_table(rows: list[dict]) -> str:
         lines.append("")
         lines.append("\\* Highest mean PSNR gain at that QP.")
         lines.append("")
+    note = _ranking_note(rows)
+    if note:
+        lines.append(note)
+        lines.append("")
     return "\n".join(lines).rstrip() + "\n"
+
+
+def _ranking_note(rows: list[dict]) -> str:
+    """One sentence per unique winner or loser, computed from the rows."""
+    groups = _group(rows)
+    settings = []
+    for row in rows:
+        key = (row["ratio"], row["qp"])
+        if key not in settings:
+            settings.append(key)
+    models = []
+    for row in rows:
+        if row["model"] not in models:
+            models.append(row["model"])
+    if len(models) < 2 or not settings:
+        return ""
+    winners = []
+    losers = []
+    for ratio, qp in settings:
+        means = []
+        for model in models:
+            group = groups.get((ratio, qp, model), [])
+            if not group:
+                return ""
+            means.append((float(np.mean([g["psnr_gain_db"] for g in group])), model))
+        means.sort(key=lambda item: item[0])
+        losers.append(means[0][1])
+        winners.append(means[-1][1])
+    sentences = []
+    if len(set(winners)) == 1:
+        sentences.append(
+            f"Model {winners[0]} has the highest mean PSNR gain at every QP in this table."
+        )
+    if len(set(losers)) == 1:
+        sentences.append(
+            f"Model {losers[0]} has the lowest mean PSNR gain at every QP in this table."
+        )
+    return " ".join(sentences)
 
 
 def _style():
@@ -242,6 +284,14 @@ def splice_readme(readme: Path, table: str, start: str = "<!-- RESULTS -->", end
     readme.write_text(f"{before}{start}\n\n{table.rstrip()}\n\n{end}{after}")
 
 
+def _timing(section: dict, value_key: str, sample_key: str, digits: int = 2) -> str:
+    samples = section.get(sample_key)
+    if samples and len(samples) > 1:
+        arr = np.asarray(samples, dtype=np.float64)
+        return f"{arr.mean():.{digits}f} ± {arr.std(ddof=1):.{digits}f}"
+    return f"{float(section[value_key]):.{digits}f}"
+
+
 def render_efficiency(efficiency: dict, onnx_rows: list[dict] | None = None) -> str:
     """Markdown tables whose numbers are taken only from the measurement files."""
     lines = [
@@ -250,23 +300,35 @@ def render_efficiency(efficiency: dict, onnx_rows: list[dict] | None = None) -> 
         + (f" ({efficiency['cpu']})" if efficiency.get("cpu") else "")
         + f", {efficiency.get('torch_threads', '?')} torch threads.",
         f"CUDA available at measurement time: {efficiency.get('cuda_available')}.",
-        "",
-        "| Model | Params | FLOPs/pixel | Patch images/s | ms/frame |",
-        "| --- | ---: | ---: | ---: | ---: |",
     ]
+    repeated = any(
+        len((row.get("patch_throughput") or {}).get("images_per_s_samples") or []) > 1
+        for row in efficiency["models"]
+    )
+    if repeated:
+        lines.append(
+            "Patch and frame figures are the mean ± sample standard deviation of the recorded repeats."
+        )
+    lines.extend(
+        [
+            "",
+            "| Model | Params | FLOPs/pixel | Patch images/s | ms/frame |",
+            "| --- | ---: | ---: | ---: | ---: |",
+        ]
+    )
     for row in efficiency["models"]:
         patch = row["patch_throughput"]
         frame = row["frame_latency"]
         lines.append(
-            "| {model} | {params} | {flops:.0f} | {images:.2f} ({h}×{w}, batch {batch}) | {ms:.2f} ({fw}×{fh}) |".format(
+            "| {model} | {params} | {flops:.0f} | {images} ({h}×{w}, batch {batch}) | {ms} ({fw}×{fh}) |".format(
                 model=row["model"],
                 params=int(row["params"]),
                 flops=float(row["flops_per_pixel"]),
-                images=float(patch["images_per_s"]),
+                images=_timing(patch, "images_per_s", "images_per_s_samples"),
                 h=int(patch["height"]),
                 w=int(patch["width"]),
                 batch=int(patch["batch"]),
-                ms=float(frame["ms_per_frame"]),
+                ms=_timing(frame, "ms_per_frame", "ms_per_frame_samples"),
                 fw=int(frame["width"]),
                 fh=int(frame["height"]),
             )

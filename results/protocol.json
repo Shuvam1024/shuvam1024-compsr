@@ -1,0 +1,51 @@
+{
+  "epochs": 6,
+  "batch_size": 256,
+  "ratios": [
+    "2by1",
+    "8by5"
+  ],
+  "qps": [
+    20,
+    30,
+    40,
+    50
+  ],
+  "models": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+  ],
+  "seeds": [
+    0
+  ],
+  "headline": {
+    "ratio": "2by1",
+    "qp": 50,
+    "seeds": [
+      0,
+      1,
+      2
+    ]
+  },
+  "max_train_patches": 16384,
+  "max_valid_patches": 4096,
+  "subset_seed": 0,
+  "learning_rates": {
+    "A": 0.001,
+    "B": 0.001,
+    "C": 0.001,
+    "D": 0.002,
+    "E": 0.002
+  },
+  "optimizer": "Adam",
+  "adam_eps": 1e-07,
+  "loss": "mse on unrounded network output in [0, 1]",
+  "eval": "8-bit rounded output; dataset-wide MSE/PSNR; mean per-patch SSIM",
+  "device": "cpu",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.12.94+-x86_64-with-glibc2.39",
+  "cpu": "x86_64"
+}
