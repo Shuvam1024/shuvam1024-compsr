@@ -1,0 +1,20 @@
+# Equal training budget for every architecture and every hosted setting that
+# is actually a distinct corpus. 4:3 archives are omitted; see the README.
+epochs: 6
+batch_size: 256
+max_train_patches: 16384
+max_valid_patches: 4096
+subset_seed: 0
+data_dir: data
+results_dir: results
+device: cpu
+ratios:
+  - "2by1"
+  - "8by5"
+qps: [20, 30, 40, 50]
+models: ["A", "B", "C", "D", "E"]
+seeds: [0]
+headline:
+  ratio: "2by1"
+  qp: 50
+  seeds: [0, 1, 2]

@@ -1,0 +1,176 @@
+{
+  "description": "Budget probe, not part of the reported grid. Models A and E, ratio 2:1, QP 50, seed 0, 8 epochs, 16384 train patches and 4096 valid patches at subset_seed 0, batch 256. curve[] scores a fixed 2048-patch slice of the test set (subset_seed 1) after every epoch. full is the entire test split after epoch 8.",
+  "epochs": 8,
+  "max_train_patches": 16384,
+  "max_valid_patches": 4096,
+  "probe_test_patches": 2048,
+  "subset_seed": 0,
+  "probe_subset_seed": 1,
+  "ratio": "2by1",
+  "qp": 50,
+  "seed": 0,
+  "models": {
+    "A": {
+      "curve": [
+        {
+          "epoch": 1,
+          "train_mse": 0.002304082765476778,
+          "val_mse": 0.002399934313466979,
+          "psnr_gain_db": 0.029287334202528825,
+          "ssim_gain": 0.0008624787903168674,
+          "mse_reduction_pct": 0.6720970481201817
+        },
+        {
+          "epoch": 2,
+          "train_mse": 0.0022743797776961904,
+          "val_mse": 0.00236653433724617,
+          "psnr_gain_db": 0.1008836629682861,
+          "ssim_gain": 0.0026956192780068777,
+          "mse_reduction_pct": 2.296159817080485
+        },
+        {
+          "epoch": 3,
+          "train_mse": 0.002253685398803403,
+          "val_mse": 0.002351240752937479,
+          "psnr_gain_db": 0.12869251621296485,
+          "ssim_gain": 0.0034394148441677652,
+          "mse_reduction_pct": 2.919780774812428
+        },
+        {
+          "epoch": 4,
+          "train_mse": 0.002241858817999148,
+          "val_mse": 0.0023397731840507025,
+          "psnr_gain_db": 0.15255241172488,
+          "ssim_gain": 0.00400860021228866,
+          "mse_reduction_pct": 3.451671632941193
+        },
+        {
+          "epoch": 5,
+          "train_mse": 0.002229745376906875,
+          "val_mse": 0.00233282298884458,
+          "psnr_gain_db": 0.1645098032133454,
+          "ssim_gain": 0.0040459324309365385,
+          "mse_reduction_pct": 3.717131677852427
+        },
+        {
+          "epoch": 6,
+          "train_mse": 0.0022236476328948308,
+          "val_mse": 0.0023293526869060267,
+          "psnr_gain_db": 0.17218469921124324,
+          "ssim_gain": 0.004643350231881671,
+          "mse_reduction_pct": 3.887133477622738
+        },
+        {
+          "epoch": 7,
+          "train_mse": 0.0022160013807782284,
+          "val_mse": 0.0023275634804223147,
+          "psnr_gain_db": 0.17906899648133745,
+          "ssim_gain": 0.00484575914428409,
+          "mse_reduction_pct": 4.039367830224471
+        },
+        {
+          "epoch": 8,
+          "train_mse": 0.0022133292578574684,
+          "val_mse": 0.002320967892753995,
+          "psnr_gain_db": 0.19096030825899746,
+          "ssim_gain": 0.004894664245538305,
+          "mse_reduction_pct": 4.301755924420314
+        }
+      ],
+      "full": {
+        "mse_baseline": 0.0022601334288974394,
+        "mse_restored": 0.0021542236751269936,
+        "mse_reduction_pct": 4.685995632661019,
+        "psnr_baseline": 26.45865921151996,
+        "psnr_restored": 26.667092054808865,
+        "psnr_gain_db": 0.20843284328890377,
+        "ssim_baseline": 0.7396974463265732,
+        "ssim_restored": 0.7449629605619044,
+        "ssim_gain": 0.00526551423533117,
+        "n_images": 34635,
+        "n_pixels": 141864960
+      }
+    },
+    "E": {
+      "curve": [
+        {
+          "epoch": 1,
+          "train_mse": 0.0023077680347746033,
+          "val_mse": 0.0024136998949365485,
+          "psnr_gain_db": 0.0004988408346520146,
+          "ssim_gain": 1.2916011341901346e-05,
+          "mse_reduction_pct": 0.011485575053717853
+        },
+        {
+          "epoch": 2,
+          "train_mse": 0.0022957998897052473,
+          "val_mse": 0.0023905864800326526,
+          "psnr_gain_db": 0.04935491752748078,
+          "ssim_gain": 0.0017527417219910246,
+          "mse_reduction_pct": 1.1300058983291579
+        },
+        {
+          "epoch": 3,
+          "train_mse": 0.0022718920210738564,
+          "val_mse": 0.0023664223651091256,
+          "psnr_gain_db": 0.0956285234121168,
+          "ssim_gain": 0.003016206979233882,
+          "mse_reduction_pct": 2.1778626458918975
+        },
+        {
+          "epoch": 4,
+          "train_mse": 0.0022583219720723312,
+          "val_mse": 0.0023544285666301018,
+          "psnr_gain_db": 0.11612921637259177,
+          "ssim_gain": 0.0032422663093342186,
+          "mse_reduction_pct": 2.6385398752157334
+        },
+        {
+          "epoch": 5,
+          "train_mse": 0.0022473732662749374,
+          "val_mse": 0.0023429959158723554,
+          "psnr_gain_db": 0.13560858421154265,
+          "ssim_gain": 0.0038849982482680456,
+          "mse_reduction_pct": 3.074256390258566
+        },
+        {
+          "epoch": 6,
+          "train_mse": 0.0022393831184470197,
+          "val_mse": 0.0023440592469544047,
+          "psnr_gain_db": 0.1353926052059471,
+          "ssim_gain": 0.003473371406740422,
+          "mse_reduction_pct": 3.069436055869134
+        },
+        {
+          "epoch": 7,
+          "train_mse": 0.00223351411599045,
+          "val_mse": 0.00233652462096264,
+          "psnr_gain_db": 0.14988740770652242,
+          "ssim_gain": 0.0038595902555891293,
+          "mse_reduction_pct": 3.3924075494165318
+        },
+        {
+          "epoch": 8,
+          "train_mse": 0.002228189217728666,
+          "val_mse": 0.0023295993321678704,
+          "psnr_gain_db": 0.16400175812687579,
+          "ssim_gain": 0.004605120109572036,
+          "mse_reduction_pct": 3.705867684996637
+        }
+      ],
+      "full": {
+        "mse_baseline": 0.0022601334288974394,
+        "mse_restored": 0.002170084215443991,
+        "mse_reduction_pct": 3.9842432443193063,
+        "psnr_baseline": 26.45865921151996,
+        "psnr_restored": 26.635234119611802,
+        "psnr_gain_db": 0.1765749080918404,
+        "ssim_baseline": 0.7396974463265732,
+        "ssim_restored": 0.7445403064247434,
+        "ssim_gain": 0.004842860098170254,
+        "n_images": 34635,
+        "n_pixels": 141864960
+      }
+    }
+  }
+}

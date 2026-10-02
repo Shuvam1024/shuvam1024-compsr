@@ -1,0 +1,11 @@
+torch==2.14.1
+numpy==2.4.4
+PyYAML==6.0.1
+matplotlib==3.11.2
+pillow==12.3.0
+scikit-image==0.26.0
+scipy==1.18.1
+onnx==1.23.1
+onnxruntime==1.30.0
+pytest==9.1.1
+ruff==0.16.10

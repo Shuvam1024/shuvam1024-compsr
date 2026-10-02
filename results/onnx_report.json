@@ -1,0 +1,122 @@
+[
+  {
+    "model": "A",
+    "path": "results/onnx/model_A.onnx",
+    "opset": 17,
+    "checks": [
+      {
+        "batch": 1,
+        "height": 64,
+        "width": 64,
+        "max_abs_diff": 1.1920928955078125e-07
+      },
+      {
+        "batch": 2,
+        "height": 64,
+        "width": 64,
+        "max_abs_diff": 1.0058283805847168e-07
+      }
+    ],
+    "max_abs_diff": 1.1920928955078125e-07,
+    "onnxruntime_images_per_s": 1339.2513062413607,
+    "pytorch_images_per_s": 752.4807857061726,
+    "timing_batch": 8,
+    "timing_size": 64
+  },
+  {
+    "model": "B",
+    "path": "results/onnx/model_B.onnx",
+    "opset": 17,
+    "checks": [
+      {
+        "batch": 1,
+        "height": 64,
+        "width": 64,
+        "max_abs_diff": 8.940696716308594e-08
+      },
+      {
+        "batch": 2,
+        "height": 64,
+        "width": 64,
+        "max_abs_diff": 1.1920928955078125e-07
+      }
+    ],
+    "max_abs_diff": 1.1920928955078125e-07,
+    "onnxruntime_images_per_s": 1150.3367143481544,
+    "pytorch_images_per_s": 1198.463844992101,
+    "timing_batch": 8,
+    "timing_size": 64
+  },
+  {
+    "model": "C",
+    "path": "results/onnx/model_C.onnx",
+    "opset": 17,
+    "checks": [
+      {
+        "batch": 1,
+        "height": 64,
+        "width": 64,
+        "max_abs_diff": 2.086162567138672e-07
+      },
+      {
+        "batch": 2,
+        "height": 64,
+        "width": 64,
+        "max_abs_diff": 1.7881393432617188e-07
+      }
+    ],
+    "max_abs_diff": 2.086162567138672e-07,
+    "onnxruntime_images_per_s": 1370.0178678986954,
+    "pytorch_images_per_s": 1410.10347954123,
+    "timing_batch": 8,
+    "timing_size": 64
+  },
+  {
+    "model": "D",
+    "path": "results/onnx/model_D.onnx",
+    "opset": 17,
+    "checks": [
+      {
+        "batch": 1,
+        "height": 64,
+        "width": 64,
+        "max_abs_diff": 1.1920928955078125e-07
+      },
+      {
+        "batch": 2,
+        "height": 64,
+        "width": 64,
+        "max_abs_diff": 1.1920928955078125e-07
+      }
+    ],
+    "max_abs_diff": 1.1920928955078125e-07,
+    "onnxruntime_images_per_s": 1822.5816545837577,
+    "pytorch_images_per_s": 1625.068072664458,
+    "timing_batch": 8,
+    "timing_size": 64
+  },
+  {
+    "model": "E",
+    "path": "results/onnx/model_E.onnx",
+    "opset": 17,
+    "checks": [
+      {
+        "batch": 1,
+        "height": 64,
+        "width": 64,
+        "max_abs_diff": 5.960464477539063e-08
+      },
+      {
+        "batch": 2,
+        "height": 64,
+        "width": 64,
+        "max_abs_diff": 5.960464477539063e-08
+      }
+    ],
+    "max_abs_diff": 5.960464477539063e-08,
+    "onnxruntime_images_per_s": 1914.560030511527,
+    "pytorch_images_per_s": 1298.8839648356904,
+    "timing_batch": 8,
+    "timing_size": 64
+  }
+]
